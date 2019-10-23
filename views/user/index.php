@@ -85,7 +85,7 @@ $this->params['breadcrumbs'][] = $this->title;
 							},
 						'format'=>'raw',
 					],
-					[
+					/*[
 						'attribute'=>'email',
 						'format'=>'raw',
 						'visible'=>User::hasPermission('viewUserEmail'),
@@ -94,7 +94,7 @@ $this->params['breadcrumbs'][] = $this->title;
 						'class'=>'webvimark\components\StatusColumn',
 						'attribute'=>'email_confirmed',
 						'visible'=>User::hasPermission('viewUserEmail'),
-					],
+					],*/
 					[
 						'attribute'=>'gridRoleSearch',
 						'filter'=>ArrayHelper::map(Role::getAvailableRoles(Yii::$app->user->isSuperAdmin),'name', 'description'),
@@ -104,14 +104,14 @@ $this->params['breadcrumbs'][] = $this->title;
 						'format'=>'raw',
 						'visible'=>User::hasPermission('viewUserRoles'),
 					],
-					[
+					/*[
 						'attribute'=>'registration_ip',
 						'value'=>function(User $model){
 								return Html::a($model->registration_ip, "http://ipinfo.io/" . $model->registration_ip, ["target"=>"_blank"]);
 							},
 						'format'=>'raw',
 						'visible'=>User::hasPermission('viewRegistrationIp'),
-					],
+					],*/
 					[
 						'value'=>function(User $model){
 								return GhostHtml::a(
