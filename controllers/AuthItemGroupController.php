@@ -5,7 +5,7 @@ namespace serjazz\modules\UserManagement\controllers;
 use serjazz\modules\UserManagement\models\rbacDB\AuthItemGroup;
 use serjazz\modules\UserManagement\models\rbacDB\search\AuthItemGroupSearch;
 use Yii;
-use serjazz\components\AdminDefaultController;
+use webvimark\components\AdminDefaultController;
 
 /**
  * AuthItemGroupController implements the CRUD actions for AuthItemGroup model.
