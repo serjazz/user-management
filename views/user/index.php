@@ -73,7 +73,7 @@ $this->params['breadcrumbs'][] = $this->title;
 					['class' => 'yii\grid\SerialColumn', 'options'=>['style'=>'width:10px'] ],
 
 					[
-						'class'=>'serjazz\components\StatusColumn',
+						'class'=>'serjazz\modules\UserManagement\components\StatusColumn',
 						'attribute'=>'superadmin',
 						'visible'=>Yii::$app->user->isSuperadmin,
 					],
@@ -91,7 +91,7 @@ $this->params['breadcrumbs'][] = $this->title;
 						'visible'=>User::hasPermission('viewUserEmail'),
 					],
 					[
-						'class'=>'serjazz\components\StatusColumn',
+						'class'=>'serjazz\modules\UserManagement\components\StatusColumn',
 						'attribute'=>'email_confirmed',
 						'visible'=>User::hasPermission('viewUserEmail'),
 					],*/
@@ -138,7 +138,7 @@ $this->params['breadcrumbs'][] = $this->title;
 						],
 					],
 					[
-						'class'=>'serjazz\components\StatusColumn',
+						'class'=>'serjazz\modules\UserManagement\components\StatusColumn',
 						'attribute'=>'status',
 						'optionsArray'=>[
 							[User::STATUS_ACTIVE, UserManagementModule::t('back', 'Active'), 'success'],

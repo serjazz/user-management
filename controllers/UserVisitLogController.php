@@ -5,7 +5,7 @@ namespace serjazz\modules\UserManagement\controllers;
 use Yii;
 use serjazz\modules\UserManagement\models\UserVisitLog;
 use serjazz\modules\UserManagement\models\search\UserVisitLogSearch;
-use serjazz\components\AdminDefaultController;
+use serjazz\modules\UserManagement\components\AdminDefaultController;
 
 /**
  * UserVisitLogController implements the CRUD actions for UserVisitLog model.

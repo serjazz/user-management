@@ -8,7 +8,7 @@ use serjazz\modules\UserManagement\models\rbacDB\AbstractItem;
 use serjazz\modules\UserManagement\models\rbacDB\Permission;
 use serjazz\modules\UserManagement\models\rbacDB\Route;
 use serjazz\modules\UserManagement\models\rbacDB\search\PermissionSearch;
-use serjazz\components\AdminDefaultController;
+use serjazz\modules\UserManagement\components\AdminDefaultController;
 use serjazz\modules\UserManagement\UserManagementModule;
 use Yii;
 

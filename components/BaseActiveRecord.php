@@ -1,5 +1,5 @@
 <?php
-namespace serjazz\components;
+namespace serjazz\modules\UserManagement\components;
 
 use webvimark\helpers\LittleBigHelper;
 use webvimark\helpers\Singleton;

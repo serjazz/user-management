@@ -1,6 +1,6 @@
 <?php
 
-namespace serjazz\components;
+namespace serjazz\modules\UserManagement\components;
 use serjazz\modules\UserManagement\components\GhostAccessControl;
 use Yii;
 use yii\web\Controller;

@@ -2,7 +2,7 @@
 
 namespace serjazz\modules\UserManagement\controllers;
 
-use serjazz\components\AdminDefaultController;
+use serjazz\modules\UserManagement\components\AdminDefaultController;
 use Yii;
 use serjazz\modules\UserManagement\models\User;
 use serjazz\modules\UserManagement\models\search\UserSearch;

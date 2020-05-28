@@ -22,7 +22,7 @@ use Yii;
  *
  * @property User $user
  */
-class UserVisitLog extends \serjazz\components\BaseActiveRecord
+class UserVisitLog extends \serjazz\modules\UserManagement\components\BaseActiveRecord
 {
 	CONST SESSION_TOKEN = '__visitorToken';
 

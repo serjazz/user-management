@@ -1,5 +1,5 @@
 <?php
-namespace serjazz\components;
+namespace serjazz\modules\UserManagement\components;
 
 
 use yii\grid\DataColumn;
