@@ -6,7 +6,7 @@ use serjazz\modules\UserManagement\components\AuthHelper;
 use serjazz\modules\UserManagement\models\rbacDB\Permission;
 use serjazz\modules\UserManagement\models\rbacDB\Role;
 use serjazz\modules\UserManagement\models\rbacDB\search\RoleSearch;
-use webvimark\components\AdminDefaultController;
+use serjazz\components\AdminDefaultController;
 use serjazz\modules\UserManagement\UserManagementModule;
 use Yii;
 use yii\rbac\DbManager;

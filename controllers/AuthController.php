@@ -2,7 +2,7 @@
 
 namespace serjazz\modules\UserManagement\controllers;
 
-use webvimark\components\BaseController;
+use serjazz\components\BaseController;
 use serjazz\modules\UserManagement\components\UserAuthEvent;
 use serjazz\modules\UserManagement\models\forms\ChangeOwnPasswordForm;
 use serjazz\modules\UserManagement\models\forms\ConfirmEmailForm;

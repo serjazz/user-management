@@ -2,7 +2,7 @@
 
 namespace serjazz\modules\UserManagement\controllers;
 
-use webvimark\components\BaseController;
+use serjazz\components\BaseController;
 use serjazz\modules\UserManagement\models\rbacDB\Permission;
 use serjazz\modules\UserManagement\models\rbacDB\Role;
 use serjazz\modules\UserManagement\models\User;
