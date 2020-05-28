@@ -183,7 +183,7 @@ class UserManagementModule extends \yii\base\Module
 	public $auth_assignment_table = '{{%auth_assignment}}';
 	public $auth_rule_table = '{{%auth_rule}}';
 
-	public $controllerNamespace = 'webvimark\modules\UserManagement\controllers';
+	public $controllerNamespace = 'serjazz\modules\UserManagement\controllers';
 
 	/**
 	 * @p
