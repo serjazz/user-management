@@ -1,6 +1,6 @@
 <?php
 
-namespace webvimark\modules\UserManagement;
+namespace serjazz\modules\UserManagement;
 
 use Yii;
 use yii\helpers\ArrayHelper;
@@ -68,7 +68,7 @@ class UserManagementModule extends \yii\base\Module
 	 *
 	 * @var string
 	 */
-	public $registrationFormClass = 'webvimark\modules\UserManagement\models\forms\RegistrationForm';
+	public $registrationFormClass = 'serjazz\modules\UserManagement\models\forms\RegistrationForm';
 
 	/**
 	 * After how many seconds confirmation token will be invalid
@@ -228,7 +228,7 @@ class UserManagementModule extends \yii\base\Module
 			Yii::$app->i18n->translations['modules/user-management/*'] = [
 				'class'          => 'yii\i18n\PhpMessageSource',
 				'sourceLanguage' => 'en',
-				'basePath'       => '@vendor/webvimark/module-user-management/messages',
+				'basePath'       => '@vendor/serjazz/module-user-management/messages',
 				'fileMap'        => [
 					'modules/user-management/back' => 'back.php',
 					'modules/user-management/front' => 'front.php',

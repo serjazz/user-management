@@ -1,7 +1,7 @@
 <?php
 
-use webvimark\modules\UserManagement\components\GhostHtml;
-use webvimark\modules\UserManagement\UserManagementModule;
+use serjazz\modules\UserManagement\components\GhostHtml;
+use serjazz\modules\UserManagement\UserManagementModule;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
@@ -13,7 +13,7 @@ use yii\grid\GridView;
 /**
  * @var yii\web\View $this
  * @var yii\data\ActiveDataProvider $dataProvider
- * @var webvimark\modules\UserManagement\models\rbacDB\search\AuthItemGroupSearch $searchModel
+ * @var serjazz\modules\UserManagement\models\rbacDB\search\AuthItemGroupSearch $searchModel
  */
 
 $this->title = UserManagementModule::t('back', 'Permission groups');
