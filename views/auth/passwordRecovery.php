@@ -40,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'template' => '<div class="row"><div class="col-lg-2">{image}</div><div class="col-lg-10">{input}</div></div>',
         'captchaAction'=>['/user-management/auth/captcha'],
         'imageOptions'=>['class'=>'img-responsive'],
-    ])->hint('Нажмите для обновления')
+    ])
     ?>
 
 	<div class="form-group">
