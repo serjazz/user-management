@@ -34,7 +34,8 @@ $this->title = UserManagementModule::t('front', 'Password recovery');
 
 	<?= $form->field($model, 'captcha')->widget(Captcha::className(), [
 		'template' => '<div class="row"><div class="col-sm-2">{image}</div><div class="col-sm-3">{input}</div></div>',
-		'captchaAction'=>['/user-management/auth/captcha']
+		'captchaAction'=>['/user-management/auth/captcha'],
+        'imageOptions'=>['class'=>'img-responsive'],
 	]) ?>
 
 	<div class="form-group">
