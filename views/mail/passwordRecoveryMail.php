@@ -3,6 +3,8 @@
  * @var $this yii\web\View
  * @var $user serjazz\modules\UserManagement\models\User
  */
+
+use serjazz\modules\UserManagement\UserManagementModule;
 use yii\helpers\Html;
 
 ?>
@@ -10,6 +12,5 @@ use yii\helpers\Html;
 $resetLink = Yii::$app->urlManager->createAbsoluteUrl(['/user-management/auth/password-recovery-receive', 'token' => $user->confirmation_token]);
 ?>
 
-Hello <?= Html::encode($user->username) ?>, follow this link to reset your password:
-
+<?= UserManagementModule::t('back', 'Hello')?> <?= Html::encode($user->username) ?>, <?= UserManagementModule::t('back', 'follow this link to')?> <?= UserManagementModule::t('back', 'reset your password')?>:
 <?= Html::a('Reset password', $resetLink) ?>

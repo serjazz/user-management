@@ -94,4 +94,10 @@ return [
     'Wrong format. Enter valid IPs separated by comma' => 'Неверный формат. Введите список IP разделённых запятой',
     'Wrong password' => 'Неверный пароль',
     'You can not change own permissions' => 'Вы не можете менять свои права',
+    'Hello' => 'Добрый день',
+    'follow this link to' => 'проследуйте по указанной ниже ссылке для',
+    'confirm your email' => 'подтверждения адреса email',
+    'and activate account' => 'и активации аккаунта',
+    'reset your password' => 'того чтобы сбросить ваш пароль',
+    'you have been registered on' => 'вы были зарегистрированы',
 ];

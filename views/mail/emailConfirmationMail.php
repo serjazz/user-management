@@ -3,6 +3,8 @@
  * @var $this yii\web\View
  * @var $user serjazz\modules\UserManagement\models\User
  */
+
+use serjazz\modules\UserManagement\UserManagementModule;
 use yii\helpers\Html;
 
 ?>
@@ -10,6 +12,6 @@ use yii\helpers\Html;
 $resetLink = Yii::$app->urlManager->createAbsoluteUrl(['/user-management/auth/confirm-email-receive', 'token' => $user->confirmation_token]);
 ?>
 
-Hello <?= Html::encode($user->username) ?>, follow this link to confirm your email:
+<?= UserManagementModule::t('back', 'Hello')?> <?= Html::encode($user->username) ?>, <?= UserManagementModule::t('back', 'follow this link to')?> <?= UserManagementModule::t('back', 'confirm your email')?>:
 
 <?= Html::a('Confirm E-mail', $resetLink) ?>
