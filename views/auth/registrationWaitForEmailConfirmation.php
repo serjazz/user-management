@@ -8,7 +8,7 @@ use serjazz\modules\UserManagement\UserManagementModule;
  */
 
 $this->title = UserManagementModule::t('front', 'Registration - confirm your e-mail');
-$this->params['breadcrumbs'][] = $this->title;
+//$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="registration-wait-for-confirmation">
 

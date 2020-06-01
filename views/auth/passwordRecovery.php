@@ -11,7 +11,7 @@ use yii\helpers\Html;
  */
 
 $this->title = UserManagementModule::t('front', 'Password recovery');
-$this->params['breadcrumbs'][] = $this->title;
+//$this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="password-recovery">
