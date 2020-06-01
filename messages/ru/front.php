@@ -32,7 +32,7 @@ return [
     'E-mail is invalid' => 'Неверный E-mail',
     'Forgot password ?' => 'Забыли пароль ?',
     'Incorrect username or password.' => 'Неверный логин или пароль',
-    'Login' => 'Логин',
+    'Login' => 'Войти',
     'Login has been taken' => 'Логин уже занят',
     'Password' => 'Пароль',
     'Password recovery' => 'Восстановление пароля',
