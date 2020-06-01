@@ -14,13 +14,13 @@ $this->title = UserManagementModule::t('front', 'Password recovery');
 //$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="panel panel-default">
-    <!--<div class="panel-heading">
-        <h3 class="panel-title"><?/*=$this->title*/?></h3>
-    </div>-->
+    <div class="panel-heading">
+        <h3 class="panel-title"><?=$this->title?></h3>
+    </div>
     <div class="panel-body">
 <div class="password-recovery">
 
-	<h2 class="text-center"><?= $this->title ?></h2>
+	<!--<h2 class="text-center"><?/*= $this->title */?></h2>-->
 
 	<?php if ( Yii::$app->session->hasFlash('error') ): ?>
 		<div class="alert-alert-warning text-center">
