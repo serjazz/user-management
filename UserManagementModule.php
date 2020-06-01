@@ -164,10 +164,10 @@ class UserManagementModule extends \yii\base\Module
 	 * @var array
 	 */
 	public $captchaOptions = [
-		'class'     => 'yii\captcha\CaptchaAction',
-		'minLength' => 3,
-		'maxLength' => 4,
-		'offset'    => 5
+        'class' => 'hr\captcha\CaptchaAction',
+        'operators' => ['+','-','*'],
+        'maxValue' => 10,
+        'fontSize' => 18,
 	];
 
 	/**
