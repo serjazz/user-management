@@ -13,7 +13,11 @@ use yii\helpers\Html;
 $this->title = UserManagementModule::t('front', 'Password recovery');
 //$this->params['breadcrumbs'][] = $this->title;
 ?>
-
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Авторизация</h3>
+    </div>
+    <div class="panel-body">
 <div class="password-recovery">
 
 	<h2 class="text-center"><?= $this->title ?></h2>
@@ -49,4 +53,6 @@ $this->title = UserManagementModule::t('front', 'Password recovery');
 
 	<?php ActiveForm::end(); ?>
 
+</div>
+</div>
 </div>
