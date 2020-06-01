@@ -11,7 +11,7 @@ use yii\helpers\Html;
  */
 
 $this->title = UserManagementModule::t('front', 'Registration');
-//$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="panel panel-default">
     <div class="panel-heading">
