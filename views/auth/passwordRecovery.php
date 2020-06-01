@@ -15,7 +15,7 @@ $this->title = UserManagementModule::t('front', 'Password recovery');
 ?>
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h3 class="panel-title">Авторизация</h3>
+        <h3 class="panel-title"><?=$this->title?></h3>
     </div>
     <div class="panel-body">
 <div class="password-recovery">
