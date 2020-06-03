@@ -41,10 +41,6 @@ class RegistrationForm extends Model
 		if ( Yii::$app->getModule('user-management')->useEmailAsLogin )
 		{
 			$rules[] = ['username', 'email'];
-			$rules[] = ['email', 'unique',
-                'targetClass'     => 'serjazz\modules\UserManagement\models\User',
-                'targetAttribute' => 'email',
-                ];
 		}
 		else
 		{
