@@ -313,6 +313,19 @@ CREATE TABLE IF NOT EXISTS `user_visit_log` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
+-- Table structure for table `user_relation`
+--
+
+CREATE TABLE IF NOT EXISTS `user_relation` (
+                                                `id` int(11) NOT NULL AUTO_INCREMENT,
+                                                `parent_id` int(11) NOT NULL,
+                                                `user_id` int(11) NOT NULL,
+                                                PRIMARY KEY (`id`),
+                                                KEY `parent_id` (`parent_id`),
+                                                KEY `user_id` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+--
 -- Constraints for dumped tables
 --
 
@@ -342,4 +355,11 @@ ALTER TABLE `auth_item_child`
 --
 ALTER TABLE `user_visit_log`
   ADD CONSTRAINT `user_visit_log_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- Constraints for table `user_relation`
+--
+ALTER TABLE `user_relation`
+    ADD CONSTRAINT `user_relation_ibfk_1` FOREIGN KEY (`parent_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+    ADD CONSTRAINT `user_relation_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 

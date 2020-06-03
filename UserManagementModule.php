@@ -182,6 +182,7 @@ class UserManagementModule extends \yii\base\Module
 	public $auth_item_group_table = '{{%auth_item_group}}';
 	public $auth_assignment_table = '{{%auth_assignment}}';
 	public $auth_rule_table = '{{%auth_rule}}';
+	public $relation_user_table = '{{%user_relation}}';
 
 	public $controllerNamespace = 'serjazz\modules\UserManagement\controllers';
 
