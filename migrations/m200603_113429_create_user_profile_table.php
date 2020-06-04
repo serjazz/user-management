@@ -1,6 +1,5 @@
 <?php
 
-use serjazz\modules\UserManagement\UserManagementModule;
 use yii\db\Migration;
 
 /**
@@ -13,10 +12,6 @@ class m200603_113429_create_user_profile_table extends Migration
      */
     public function safeUp()
     {
-        /**
-         * @var $module UserManagementModule
-         */
-        $module = UserManagementModule::getInstance();
         $tableOptions = null;
         if ( $this->db->driverName === 'mysql' )
         {
@@ -24,8 +19,8 @@ class m200603_113429_create_user_profile_table extends Migration
         }
 
         // Check if user Table exist
-        $tablename = $module->user_profile;
-        $usertablename = $module->user_table;
+        $tablename = \Yii::$app->getModule('user-management')->user_profile;
+        $usertablename = \Yii::$app->getModule('user-management')->user_table;
 
         $this->createTable($tablename, [
             'id' => $this->primaryKey(),
@@ -57,7 +52,7 @@ class m200603_113429_create_user_profile_table extends Migration
         );
 
         //add photo folder
-        $module->addDir($module->photo_path_absolute);
+        \Yii::$app->getModule('user-management')->addDir(\Yii::$app->getModule('user-management')->photo_path_absolute);
     }
 
     /**
@@ -65,13 +60,8 @@ class m200603_113429_create_user_profile_table extends Migration
      */
     public function safeDown()
     {
-        /**
-         * @var $module UserManagementModule
-         */
-        $module = UserManagementModule::getInstance();
-        $files = $module->photo_path_absolute;
-        $module->removeFiles($files);
-        $tablename = $module->user_profile;
+        \Yii::$app->getModule('user-management')->removeFiles(\Yii::$app->getModule('user-management')->photo_path_absolute);
+        $tablename = \Yii::$app->getModule('user-management')->user_profile;
         $this->dropForeignKey(
             'fk-profile-user_id',
             $tablename
