@@ -211,7 +211,7 @@ class UserManagementModule extends \yii\base\Module
 		if($this->useAdvancedTemplate){
             $this->photo_path = '/backend'.$this->photo_path;
         }
-        $this->photo_path_absolute = __DIR__.$this->photo_path;
+        $this->photo_path_absolute = dirname(__DIR__,3).$this->photo_path;
 		$this->prepareMailerOptions();
 	}
 

@@ -30,7 +30,6 @@ class m200603_113429_create_user_profile_table extends Migration
             'firstname'           => $this->string()->null(),
             'birthdate'           => $this->integer()->notNull(),
             'photo'           => $this->string()->null(),
-            0                => 'FOREIGN KEY (user_id) REFERENCES '.$usertablename.' (id) ON DELETE CASCADE ON UPDATE CASCADE',
         ],$tableOptions);
 
         // creates index for column `user_id`
