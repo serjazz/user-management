@@ -362,9 +362,9 @@ class User extends UserIdentity
 		else
 		{
 			// Console doesn't have Yii::$app->user, so we skip it for console
-			if ( php_sapi_name() != 'cli' )
+			if (PHP_SAPI !== 'cli' )
 			{
-				if ( Yii::$app->user->id == $this->id )
+				if ( Yii::$app->user->id === $this->id )
 				{
 					// Make sure user will not deactivate himself
 					$this->status = static::STATUS_ACTIVE;
@@ -401,10 +401,10 @@ class User extends UserIdentity
 	public function beforeDelete()
 	{
 		// Console doesn't have Yii::$app->user, so we skip it for console
-		if ( php_sapi_name() != 'cli' )
+		if ( PHP_SAPI !== 'cli' )
 		{
 			// Don't let delete yourself
-			if ( Yii::$app->user->id == $this->id )
+			if ( Yii::$app->user->id === $this->id )
 			{
 				return false;
 			}

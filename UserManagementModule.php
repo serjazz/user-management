@@ -183,8 +183,17 @@ class UserManagementModule extends \yii\base\Module
 	public $auth_assignment_table = '{{%auth_assignment}}';
 	public $auth_rule_table = '{{%auth_rule}}';
 	public $relation_user_table = '{{%user_relation}}';
+	public $user_profile = '{{%user_profile}}';
 
 	public $controllerNamespace = 'serjazz\modules\UserManagement\controllers';
+
+    /**
+     * User photo path
+     *
+     * @var string
+     */
+	public $photo_path = '/upload/profiles';
+    public $photo_path_absolute;
 
 	/**
 	 * @p
@@ -192,7 +201,7 @@ class UserManagementModule extends \yii\base\Module
 	public function init()
 	{
 		parent::init();
-
+        $this->photo_path_absolute = Yii::getAlias('@webroot').$this->photo_path;
 		$this->prepareMailerOptions();
 	}
 
@@ -289,4 +298,39 @@ class UserManagementModule extends \yii\base\Module
 
 		$this->mailerOptions = ArrayHelper::merge($this->_defaultMailerOptions, $this->mailerOptions);
 	}
+
+    /**
+     * Add dir
+     *
+     * @param string $path
+     * @return bool
+     */
+	public function addDir($path){
+        return (!mkdir($path, 0775) && !is_dir($path));
+    }
+
+    /**
+     * Recursively removing all files in path
+     *
+     * @param string $path
+     * @return bool
+     */
+	public function removeFiles($path){
+	    $remove = false;
+        if ($handle = opendir($path)) {
+            while (false !== ($entry = readdir($handle))) {
+                if ($entry !== '.' && $entry !== '..') {
+                    if(is_dir($path.'/'.$entry)){
+                        $this->removeFiles($path.'/'.$entry);
+                    } else {
+                        if(unlink($path.'/'.$entry)){
+                            $remove = true;
+                        }
+                    }
+                }
+            }
+            closedir($handle);
+        }
+        return $remove;
+    }
 }
