@@ -10,6 +10,13 @@ class UserManagementModule extends \yii\base\Module
 	const SESSION_LAST_ATTEMPT = '_um_last_attempt';
 	const SESSION_ATTEMPT_COUNT = '_um_attempt_count';
 
+    /**
+     * It set true, any folders needed for module will be created at /backend part of Yii
+     *
+     * @var bool
+     */
+	public $useAdvancedTemplate = false;
+
 	/**
 	 * If set true, then on registration username will be validated as email
 	 *
@@ -192,7 +199,7 @@ class UserManagementModule extends \yii\base\Module
      *
      * @var string
      */
-	public $photo_path = '/upload/profiles';
+	public $photo_path = '/web/upload/profiles';
     public $photo_path_absolute;
 
 	/**
@@ -201,7 +208,10 @@ class UserManagementModule extends \yii\base\Module
 	public function init()
 	{
 		parent::init();
-        $this->photo_path_absolute = Yii::getAlias('@webroot').$this->photo_path;
+		if($this->useAdvancedTemplate){
+            $this->photo_path = '/backend'.$this->photo_path;
+        }
+        $this->photo_path_absolute = __DIR__.$this->photo_path;
 		$this->prepareMailerOptions();
 	}
 
