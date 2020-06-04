@@ -316,7 +316,7 @@ class UserManagementModule extends \yii\base\Module
      * @return bool
      */
 	public function addDir($path){
-        return (!mkdir($path, 0775) && !is_dir($path));
+        return (!mkdir($path, 0775,true) && !is_dir($path));
     }
 
     /**
