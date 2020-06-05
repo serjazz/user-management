@@ -49,4 +49,10 @@ return [
     'Too many attempts' => 'Лимит попыток превышен',
     'Unable to send message for email provided' => 'Не удалось отправить письмо на указанный email',
     'You could not login from this IP' => 'Вы не можете входить с этого IP',
+    'Yes' => 'Да',
+    'No' => 'Нет',
+    'You are company?' => 'Организация?',
+    'Could not create user profile: ' => 'Не удалось создать профиль: ',
+    'Could not found related company' => 'Не удалось найти связанную компанию',
+    'Expect verification of the specified data. You will be notified by email of the end of the check.' => 'Ожидайте проверки указанных данных. Об окончании проверки вы будете уведомлены по email',
 ];

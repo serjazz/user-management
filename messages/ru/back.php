@@ -100,4 +100,12 @@ return [
     'and activate account' => 'и активации аккаунта',
     'reset your password' => 'того чтобы сбросить ваш пароль',
     'you have been registered on' => 'вы были зарегистрированы',
+    'Parent' => 'Привязан',
+    'Lastname' => 'Фамилия',
+    'Middlename' => 'Отчество',
+    'Firstname' => 'Имя',
+    'Birthdate' => 'День рождения',
+    'Photo' => 'Фото',
+    'Is company' => 'Компания',
+    'Company hash' => 'Хеш привязки',
 ];

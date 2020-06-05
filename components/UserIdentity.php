@@ -152,19 +152,22 @@ abstract class UserIdentity extends ActiveRecord implements IdentityInterface
 		}
 	}
 
-	/**
-	 * Generates "remember me" authentication key
-	 */
-	public function generateAuthKey()
+    /**
+     * Generates "remember me" authentication key
+     *
+     * @param int $length
+     * @throws \yii\base\Exception
+     */
+    public function generateAuthKey($length=32)
 	{
-		if ( php_sapi_name() == 'cli' )
+		if ( php_sapi_name() === 'cli' )
 		{
 			$security = new Security();
-			$this->auth_key = $security->generateRandomString();
+			$this->auth_key = $security->generateRandomString($length);
 		}
 		else
 		{
-			$this->auth_key = Yii::$app->security->generateRandomString();
+			$this->auth_key = Yii::$app->security->generateRandomString($length);
 		}
 	}
 

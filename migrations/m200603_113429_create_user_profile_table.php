@@ -25,11 +25,14 @@ class m200603_113429_create_user_profile_table extends Migration
         $this->createTable($tablename, [
             'id' => $this->primaryKey(),
             'user_id'       => $this->integer()->notNull(),
+            'parent_id'       => $this->integer()->null(),
             'lastname'           => $this->string()->notNull(),
             'middlename'           => $this->string()->null(),
             'firstname'           => $this->string()->null(),
-            'birthdate'           => $this->integer()->notNull(),
+            'birthdate'           => $this->integer(8)->null(),
             'photo'           => $this->string()->null(),
+            'is_company'           => $this->tinyInteger(1)->notNull()->defaultValue(0),
+            'company_hash'           => $this->string()->null(),
         ],$tableOptions);
 
         // creates index for column `user_id`
@@ -50,6 +53,24 @@ class m200603_113429_create_user_profile_table extends Migration
             'CASCADE'
         );
 
+        // creates index for column `parent_id`
+        $this->createIndex(
+            'idx-profile-parent_id',
+            $tablename,
+            'parent_id'
+        );
+
+        // add foreign key for table `user`
+        $this->addForeignKey(
+            'fk-profile-parent_id',
+            $tablename,
+            'parent_id',
+            $usertablename,
+            'id',
+            'CASCADE',
+            'CASCADE'
+        );
+
         //add photo folder
         \Yii::$app->getModule('user-management')->addDir(\Yii::$app->getModule('user-management')->photo_path_absolute);
     }
@@ -61,6 +82,14 @@ class m200603_113429_create_user_profile_table extends Migration
     {
         \Yii::$app->getModule('user-management')->removeFiles(\Yii::$app->getModule('user-management')->photo_path_absolute);
         $tablename = \Yii::$app->getModule('user-management')->user_profile;
+        $this->dropForeignKey(
+            'fk-profile-parent_id',
+            $tablename
+        );
+        $this->dropIndex(
+            'idx-profile-parent_id',
+            $tablename
+        );
         $this->dropForeignKey(
             'fk-profile-user_id',
             $tablename
