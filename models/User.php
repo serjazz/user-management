@@ -212,6 +212,18 @@ class User extends UserIdentity
     }
 
     /**
+     * return status css-class
+     * @return array
+     */
+    public static function getStatusClass(){
+        return array(
+            self::STATUS_ACTIVE   => 'success',
+            self::STATUS_INACTIVE => 'warning',
+            self::STATUS_BANNED   => 'danger',
+        );
+    }
+
+    /**
      * getStatusValue
      *
      * @param string $val
@@ -221,6 +233,19 @@ class User extends UserIdentity
     public static function getStatusValue($val)
     {
         $ar = self::getStatusList();
+
+        return isset( $ar[$val] ) ? $ar[$val] : $val;
+    }
+
+    /**
+     * Get current status css-class
+     *
+     * @param $val
+     * @return mixed
+     */
+    public static function getStatusClassValue($val)
+    {
+        $ar = self::getStatusClass();
 
         return isset( $ar[$val] ) ? $ar[$val] : $val;
     }

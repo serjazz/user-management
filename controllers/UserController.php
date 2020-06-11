@@ -3,6 +3,8 @@
 namespace serjazz\modules\UserManagement\controllers;
 
 use serjazz\modules\UserManagement\components\AdminDefaultController;
+use serjazz\modules\UserManagement\models\forms\RegistrationForm;
+use serjazz\modules\UserManagement\models\UserProfile;
 use Yii;
 use serjazz\modules\UserManagement\models\User;
 use serjazz\modules\UserManagement\models\search\UserSearch;
@@ -13,54 +15,58 @@ use yii\web\NotFoundHttpException;
  */
 class UserController extends AdminDefaultController
 {
-	/**
-	 * @var User
-	 */
-	public $modelClass = 'serjazz\modules\UserManagement\models\User';
+    /**
+     * @var User
+     */
+    public $modelClass = 'serjazz\modules\UserManagement\models\User';
 
-	/**
-	 * @var UserSearch
-	 */
-	public $modelSearchClass = 'serjazz\modules\UserManagement\models\search\UserSearch';
+    /**
+     * @var UserProfile
+     */
+    public $profileClass = 'serjazz\modules\UserManagement\models\UserProfile';
 
-	/**
-	 * @return mixed|string|\yii\web\Response
-	 */
-	public function actionCreate()
-	{
-		$model = new User(['scenario'=>'newUser']);
+    /**
+     * @var UserSearch
+     */
+    public $modelSearchClass = 'serjazz\modules\UserManagement\models\search\UserSearch';
 
-		if ( $model->load(Yii::$app->request->post()) && $model->save() )
-		{
-			return $this->redirect(['view',	'id' => $model->id]);
-		}
+    /**
+     * @return mixed|string|\yii\web\Response
+     */
+    public function actionCreate()
+    {
+        $model = new User(['scenario'=>'newUser']);
+        if ( $model->load(Yii::$app->request->post()) && $model->save() )
+        {
+            return $this->redirect(['view',	'id' => $model->id]);
+        }
 
-		return $this->renderIsAjax('create', compact('model'));
-	}
+        return $this->renderIsAjax('create', compact('model'));
+    }
 
-	/**
-	 * @param int $id User ID
-	 *
-	 * @throws \yii\web\NotFoundHttpException
-	 * @return string
-	 */
-	public function actionChangePassword($id)
-	{
-		$model = User::findOne($id);
+    /**
+     * @param int $id User ID
+     *
+     * @throws \yii\web\NotFoundHttpException
+     * @return string
+     */
+    public function actionChangePassword($id)
+    {
+        $model = User::findOne($id);
 
-		if ( !$model )
-		{
-			throw new NotFoundHttpException('User not found');
-		}
+        if ( !$model )
+        {
+            throw new NotFoundHttpException('User not found');
+        }
 
-		$model->scenario = 'changePassword';
+        $model->scenario = 'changePassword';
 
-		if ( $model->load(Yii::$app->request->post()) && $model->save() )
-		{
-			return $this->redirect(['view',	'id' => $model->id]);
-		}
+        if ( $model->load(Yii::$app->request->post()) && $model->save() )
+        {
+            return $this->redirect(['view',	'id' => $model->id]);
+        }
 
-		return $this->renderIsAjax('changePassword', compact('model'));
-	}
+        return $this->renderIsAjax('changePassword', compact('model'));
+    }
 
 }

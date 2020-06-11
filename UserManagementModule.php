@@ -4,6 +4,7 @@ namespace serjazz\modules\UserManagement;
 
 use Yii;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
 
 class UserManagementModule extends \yii\base\Module
 {
@@ -207,7 +208,8 @@ class UserManagementModule extends \yii\base\Module
      *
      * @var string
      */
-    public $photo_path = '/web/upload/profiles';
+    public $photo_path = '/upload/profiles';
+    public $photo_path_root;
     public $photo_path_absolute;
 
     /**
@@ -217,9 +219,9 @@ class UserManagementModule extends \yii\base\Module
     {
         parent::init();
         if($this->useAdvancedTemplate){
-            $this->photo_path = '/backend'.$this->photo_path;
+            $this->photo_path_root = '/backend/web'.$this->photo_path;
         }
-        $this->photo_path_absolute = dirname(__DIR__,3).$this->photo_path;
+        $this->photo_path_absolute = dirname(__DIR__,3).$this->photo_path_root;
         $this->prepareMailerOptions();
     }
 
@@ -231,12 +233,21 @@ class UserManagementModule extends \yii\base\Module
     public static function menuItems()
     {
         return [
-            ['label' => UserManagementModule::t('back', 'Users'), 'url' => ['/user-management/user/index']],
-            ['label' => UserManagementModule::t('back', 'Roles'), 'url' => ['/user-management/role/index']],
-            ['label' => UserManagementModule::t('back', 'Permissions'), 'url' => ['/user-management/permission/index']],
-            ['label' => UserManagementModule::t('back', 'Permission groups'), 'url' => ['/user-management/auth-item-group/index']],
-            ['label' => UserManagementModule::t('back', 'Visit log'), 'url' => ['/user-management/user-visit-log/index']],
+            ['label' => UserManagementModule::t('back', 'Users'), 'url' => ['/user-management/user/index'],'active'=>static::isExistRoute('/user-management/user')],
+            ['label' => UserManagementModule::t('back', 'Roles'), 'url' => ['/user-management/role/index'],'active'=>static::isExistRoute('/user-management/role')],
+            ['label' => UserManagementModule::t('back', 'Permissions'), 'url' => ['/user-management/permission/index'],'active'=>static::isExistRoute('/user-management/permission')],
+            ['label' => UserManagementModule::t('back', 'Permission groups'), 'url' => ['/user-management/auth-item-group/index'],'active'=>static::isExistRoute('/user-management/auth-item-group')],
+            ['label' => UserManagementModule::t('back', 'Visit log'), 'url' => ['/user-management/user-visit-log/index'],'active'=>static::isExistRoute('/user-management/user-visit-log')],
         ];
+    }
+
+    /**
+     * Check, is root route exist at reqest route
+     * @param $rote
+     * @return bool
+     */
+    public static function isExistRoute($rote){
+        return \mb_stripos(Url::current([], true),$rote) !== false;
     }
 
     /**

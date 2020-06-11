@@ -142,7 +142,7 @@ class RegistrationForm extends Model
      * @param User $user
      * @return bool
      */
-    protected function saveProfile($user)
+    public function saveProfile($user)
     {
         //create user profile
         $profile = new UserProfile();

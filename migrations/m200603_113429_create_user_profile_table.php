@@ -31,6 +31,7 @@ class m200603_113429_create_user_profile_table extends Migration
             'firstname'           => $this->string()->null(),
             'birthdate'           => $this->integer(8)->null(),
             'photo'           => $this->string()->null(),
+            'phone'           => $this->integer()->null(),
             'is_company'           => $this->tinyInteger(1)->notNull()->defaultValue(0),
             'company_hash'           => $this->string()->null(),
         ],$tableOptions);

@@ -3,26 +3,27 @@
 use yii\db\Schema;
 use yii\db\Migration;
 use serjazz\modules\UserManagement\models\User;
+use serjazz\modules\UserManagement\models\UserProfile;
 
 class m200604_072112_insert_superadmin_to_profile extends Migration
 {
 	public function safeUp()
 	{
-		$user = User::findOne(1);
-		$user->superadmin = 1;
-		$user->status = User::STATUS_ACTIVE;
-		$user->username = 'superadmin';
-		$user->password = 'superadmin';
-		$user->save(false);
+		if($user = User::findByUsername('superadmin')) {
+            $profile = new UserProfile();
+            $profile->user_id = $user->id;
+            $profile->lastname = 'Admin';
+            $profile->firstname = 'Super';
+            $profile->save(false);
+        }
 	}
 
 	public function safeDown()
 	{
-		$user = User::findByUsername('superadmin');
-
-		if ( $user )
-		{
-			$user->delete();
-		}
+		if($user = User::findByUsername('superadmin')){
+		    if($profile = UserProfile::find()->where('user_id = '.$user->id)->one()){
+                $profile->delete();
+            }
+        }
 	}
 }
