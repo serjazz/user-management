@@ -10,6 +10,7 @@ use yii\helpers\ArrayHelper;
 use yii\web\Cookie;
 use yii\web\NotFoundHttpException;
 use Yii;
+use yii\web\UploadedFile;
 
 class AdminDefaultController extends BaseController
 {
@@ -155,12 +156,18 @@ class AdminDefaultController extends BaseController
 
         if ( $model->load(Yii::$app->request->post()) AND $model->save())
         {
-            if($profile->load(Yii::$app->request->post()) AND $profile->save()){
-
+            $post = Yii::$app->request->post();
+            unset($post['UserProfile']['photo']);
+            if($profile->load($post) ){
+                $photo = UploadedFile::getInstance($profile, 'photo');
+                if($photo){
+                    $profile->photo = $photo;
+                }
+                if($profile->save()) {
+                    $redirect = $this->getRedirectPage('update', $model);
+                    return $redirect === false ? '' : $this->redirect($redirect);
+                }
             }
-            $redirect = $this->getRedirectPage('update', $model);
-
-            return $redirect === false ? '' : $this->redirect($redirect);
         }
 
         return $this->renderIsAjax('update', compact('model','profile'));

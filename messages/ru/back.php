@@ -53,6 +53,7 @@ return [
     'IP' => '',
     'Language' => 'Язык',
     'Login' => 'Войти',
+    'Username' => 'Логин',
     'Name' => 'Название',
     'OS' => 'ОС',
     'Password' => 'Пароль',
@@ -112,4 +113,10 @@ return [
     'Logo' => 'Логотип',
     'Is company' => 'Компания',
     'Company hash' => 'Хеш привязки',
+    'Error' => 'Ошибка',
+    'Remove photo' => 'Удалить фото',
+    'Remove logo' => 'Удалить лого',
+    'Invite users' => 'Пригласить сотрудников',
+    'Invite form' => 'Приглашение сотрудников',
+    'Users was being invited' => 'Приглашение сотрудников',
 ];

@@ -28,6 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <p>
                 <?= GhostHtml::a(UserManagementModule::t('back', 'Edit'), ['update', 'id' => $model->id], ['class' => 'btn btn-sm btn-primary']) ?>
                 <?= GhostHtml::a(UserManagementModule::t('back', 'Create'), ['create'], ['class' => 'btn btn-sm btn-success']) ?>
+                <?= GhostHtml::a(UserManagementModule::t('back', 'Invite users'), ['invite', 'id' => $model->id], ['class' => 'btn btn-sm btn-success btn-block']) ?>
                 <?= GhostHtml::a(
                     UserManagementModule::t('back', 'Roles and permissions'),
                     ['/user-management/user-permission/set', 'id'=>$model->id],

@@ -3,6 +3,7 @@
 namespace serjazz\modules\UserManagement\controllers;
 
 use serjazz\modules\UserManagement\components\AdminDefaultController;
+use serjazz\modules\UserManagement\models\forms\InviteForm;
 use serjazz\modules\UserManagement\models\forms\RegistrationForm;
 use serjazz\modules\UserManagement\models\UserProfile;
 use Yii;
@@ -42,6 +43,23 @@ class UserController extends AdminDefaultController
         }
 
         return $this->renderIsAjax('create', compact('model'));
+    }
+
+    /**
+     * @param $id
+     * @return string|\yii\web\Response
+     * @throws NotFoundHttpException
+     */
+    public function actionInvite($id){
+        $user = $this->findModel($id);
+        $profile = $user->getProfile()->one();
+        $model = new InviteForm();
+        if ( $model->load(Yii::$app->request->post()) && $model->validate() && $model->sendInvite($profile))
+        {
+            Yii::$app->session->setFlash('success', UserManagementModule::t('back', 'Users was being invited'));
+            return $this->redirect(['view',	'id' => $user->id]);
+        }
+        return $this->renderIsAjax('invite', compact('model'));
     }
 
     /**
