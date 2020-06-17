@@ -3,6 +3,7 @@ namespace serjazz\modules\UserManagement\components;
 
 
 use serjazz\modules\UserManagement\models\forms\RegistrationForm;
+use serjazz\modules\UserManagement\models\User;
 use yii\data\ActiveDataProvider;
 use yii\db\ActiveRecord;
 use yii\filters\VerbFilter;
@@ -85,8 +86,17 @@ class AdminDefaultController extends BaseController
         else
         {
             $modelClass = $this->modelClass;
+            $model = $modelClass::find()->joinWith('profile');
+
+            if ( !Yii::$app->user->isSuperadmin )
+            {
+                $model->where(['superadmin'=>0]);
+            }
+            if(Yii::$app->user->isCompany){
+                $model->where('profile.parent_id = :userid OR profile.user_id = :userid',[':userid'=>Yii::$app->user->id]);
+            }
             $dataProvider = new ActiveDataProvider([
-                'query' => $modelClass::find(),
+                'query' => $model,
             ]);
         }
 
@@ -148,7 +158,10 @@ class AdminDefaultController extends BaseController
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $profile = $model->getProfile()->one();
+        $profile = null;
+        if($model instanceof User) {
+            $profile = $model->getProfile()->one();
+        }
         if ( $this->scenarioOnUpdate )
         {
             $model->scenario = $this->scenarioOnUpdate;

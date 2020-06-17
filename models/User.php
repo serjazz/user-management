@@ -50,6 +50,22 @@ class User extends UserIdentity
      * @var string
      */
     public $repeat_password;
+    /**
+     * @var int
+     */
+    public $is_company;
+    /**
+     * @var int
+     */
+    public $is_manager;
+    /**
+     * @var string
+     */
+    public $fullname;
+    /**
+     * @var string
+     */
+    public $photo;
 
     /**
      * Store result in singleton to prevent multiple db requests with multiple calls
@@ -336,6 +352,19 @@ class User extends UserIdentity
         }
     }
 
+    public function afterFind()
+    {
+        if($profile = $this->getProfile()->one()){
+            $this->is_company = $profile->is_company;
+            $this->photo = $profile->user_photo;
+            $this->fullname = $profile->fullname;
+        }
+        if(!$this->is_company && self::hasRole(['manager'],true)){
+            $this->is_manager = 1;
+        }
+        parent::afterFind();
+    }
+
     /**
      * @return array
      */
@@ -343,7 +372,7 @@ class User extends UserIdentity
     {
         return [
             'id'                 => 'ID',
-            'username'           => UserManagementModule::t('back', 'Login'),
+            'username'           => UserManagementModule::t('back', 'Username'),
             'superadmin'         => UserManagementModule::t('back', 'Superadmin'),
             'confirmation_token' => UserManagementModule::t('back', 'Confirmation Token'),
             'registration_ip'    => UserManagementModule::t('back', 'Registration IP'),
@@ -466,7 +495,7 @@ class User extends UserIdentity
      * @return bool
      */
     public function validateChash($hash){
-        if($profile = Profile::find()->where('company_hash LIKE :company_hash AND is_company = 1',[':company_hash'=>$hash])->one()){
+        if($profile = UserProfile::find()->where('company_hash LIKE :company_hash AND is_company = 1',[':company_hash'=>$hash])->one()){
             return $profile->user_id;
         }
         return false;

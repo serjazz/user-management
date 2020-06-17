@@ -177,6 +177,7 @@ class AuthController extends BaseController
         }
         if(Yii::$app->request->get('chash')){
             $model->chash = Yii::$app->request->get('chash');
+            $model->username = urldecode(Yii::$app->request->get('email'));
             $model->is_company = 0;
         }
         return $this->renderIsAjax('registration', compact('model'));

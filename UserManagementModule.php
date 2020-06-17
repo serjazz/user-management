@@ -56,6 +56,7 @@ class UserManagementModule extends \yii\base\Module
         'registrationFormViewFile'     => '/mail/registrationEmailConfirmation',
         'passwordRecoveryFormViewFile' => '/mail/passwordRecoveryMail',
         'confirmEmailFormViewFile'     => '/mail/emailConfirmationMail',
+        'inviteFormViewFile'     => '/mail/inviteMail',
     ];
 
     /**
@@ -232,13 +233,14 @@ class UserManagementModule extends \yii\base\Module
      */
     public static function menuItems()
     {
-        return [
+        $menu = [
             ['label' => UserManagementModule::t('back', 'Users'), 'url' => ['/user-management/user/index'],'active'=>static::isExistRoute('/user-management/user')],
             ['label' => UserManagementModule::t('back', 'Roles'), 'url' => ['/user-management/role/index'],'active'=>static::isExistRoute('/user-management/role')],
             ['label' => UserManagementModule::t('back', 'Permissions'), 'url' => ['/user-management/permission/index'],'active'=>static::isExistRoute('/user-management/permission')],
             ['label' => UserManagementModule::t('back', 'Permission groups'), 'url' => ['/user-management/auth-item-group/index'],'active'=>static::isExistRoute('/user-management/auth-item-group')],
             ['label' => UserManagementModule::t('back', 'Visit log'), 'url' => ['/user-management/user-visit-log/index'],'active'=>static::isExistRoute('/user-management/user-visit-log')],
         ];
+        return $menu;
     }
 
     /**

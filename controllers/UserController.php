@@ -2,6 +2,7 @@
 
 namespace serjazz\modules\UserManagement\controllers;
 
+use serjazz\modules\UserManagement\UserManagementModule;
 use serjazz\modules\UserManagement\components\AdminDefaultController;
 use serjazz\modules\UserManagement\models\forms\InviteForm;
 use serjazz\modules\UserManagement\models\forms\RegistrationForm;
