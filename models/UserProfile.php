@@ -3,6 +3,7 @@
 
 namespace serjazz\modules\UserManagement\models;
 use serjazz\modules\UserManagement\UserManagementModule;
+use yii\helpers\ArrayHelper;
 use Yii;
 
 /**
@@ -19,6 +20,7 @@ use Yii;
  * @property int $is_company
  * @property int $phone
  * @property string|null $company_hash
+ * @property string|null $timezone
  *
  * @property User $user
  */
@@ -77,7 +79,9 @@ class UserProfile extends \yii\db\ActiveRecord
             [['user_id', 'lastname'], 'required'],
             [['user_id', 'parent_id', 'birthdate', 'is_company', 'remove_photo'], 'integer'],
             [['lastname', 'middlename', 'firstname', 'company_hash'], 'string', 'max' => 255],
+            [['timezone'], 'string', 'max' => 150],
             [['phone'], 'string', 'max' => 11],
+            [['fullname'], 'safe'],
             [['photo'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg'],
             ['phone', 'filter', 'filter' => [$this, 'normalizePhone']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
@@ -116,6 +120,7 @@ class UserProfile extends \yii\db\ActiveRecord
             'is_company' => UserManagementModule::t('back', 'Is company'),
             'company_hash' => UserManagementModule::t('back', 'Company hash'),
             'remove_photo' => UserManagementModule::t('back', 'Remove photo'),
+            'timezone' => UserManagementModule::t('back', 'Timezone'),
         ];
         if($this->is_company){
             $attrLabels['lastname'] = UserManagementModule::t('back', 'Company');
@@ -247,5 +252,38 @@ class UserProfile extends \yii\db\ActiveRecord
     public function getParentUser()
     {
         return $this->hasOne(User::className(), ['id' => 'parent_id']);
+    }
+
+    /**
+     * Get name of proile (company name or FIO)
+     * @param $id
+     * @return string
+     */
+    public static function getNameById($id){
+        return static::findOne($id)->fullname;
+    }
+
+    /**
+     * Company list
+     * @return mixed
+     */
+    public static function getCompanies(){
+        $where = 'is_company = :company';
+        $param = [':company'=>1];
+        $model = static::find()->where($where,$param)->all();
+        return ArrayHelper::map($model,'user_id','lastname');
+    }
+
+    /**
+     * return list of all timzones
+     * @return array
+     */
+    public static function timezones(){
+        $tznAr = \DateTimeZone::listIdentifiers();
+        $timezones = [];
+        foreach ($tznAr as $value){
+            $timezones[$value] = $value;
+        }
+        return $timezones;
     }
 }

@@ -66,6 +66,14 @@ class User extends UserIdentity
      * @var string
      */
     public $photo;
+    /**
+     * @var int
+     */
+    public $company_id;
+    /**
+     * @var string
+     */
+    public $timezone;
 
     /**
      * Store result in singleton to prevent multiple db requests with multiple calls
@@ -358,6 +366,14 @@ class User extends UserIdentity
             $this->is_company = $profile->is_company;
             $this->photo = $profile->user_photo;
             $this->fullname = $profile->fullname;
+            if($this->is_company){
+                $this->company_id = $this->id;
+            } else {
+                $this->company_id = $profile->parent_id;
+            }
+            if($profile->timezone){
+                $this->timezone = $profile->timezone;
+            }
         }
         if(!$this->is_company && self::hasRole(['manager'],true)){
             $this->is_manager = 1;

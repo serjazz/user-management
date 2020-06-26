@@ -130,4 +130,5 @@ return [
     'confirm E-mail' => 'подтвердить E-mail',
     'View' => 'Просмотр',
     'Profile' => 'Профиль',
+    'Timezone' => 'Временная зона',
 ];

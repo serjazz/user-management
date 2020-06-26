@@ -16,6 +16,7 @@ class RegistrationForm extends Model
     public $captcha;
     public $chash;
     public $is_company = 1;
+    public $timezone;
 
     /**
      * @inheritdoc
@@ -36,6 +37,7 @@ class RegistrationForm extends Model
             [['username','chash'], 'purgeXSS'],
 
             [['password','chash'], 'string', 'max' => 255],
+            [['timezone'], 'string', 'max' => 150],
             [['is_company'], 'number','min'=>0,'max'=>1],
             ['password', 'match', 'pattern' => Yii::$app->getModule('user-management')->passwordRegexp],
             ['chash','safe'],
@@ -78,6 +80,7 @@ class RegistrationForm extends Model
             'repeat_password' => UserManagementModule::t('front', 'Repeat password'),
             'captcha'         => UserManagementModule::t('front', 'Captcha'),
             'is_company'         => UserManagementModule::t('front', 'You are company?'),
+            'timezone'         => UserManagementModule::t('front', 'Timezone'),
         ];
     }
 
@@ -148,6 +151,9 @@ class RegistrationForm extends Model
         $profile = new UserProfile();
         $profile->user_id = $user->id;
         $profile->lastname = $user->email;
+        if($this->timezone && in_array($this->timezone,UserProfile::timezones())){
+            $profile->timezone = $this->timezone;
+        }
         if(!$this->chash && $this->is_company){
             $profile->is_company = 1;
             $profile->company_hash = $user->generateChash();

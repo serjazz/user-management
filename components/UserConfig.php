@@ -43,6 +43,14 @@ class UserConfig extends User
     }
 
     /**
+     * Allows to call Yii::$app->user->timezone
+     * @return bool
+     */
+    public function getTimezone()
+    {
+        return @Yii::$app->user->identity->timezone;
+    }
+    /**
      * Allows to call Yii::$app->user->isCompany
      * @return bool
      */
@@ -82,6 +90,14 @@ class UserConfig extends User
      */
     public function getFullname(){
         return @Yii::$app->user->identity->fullname;
+    }
+
+    /**
+     * Allows to call Yii::$app->user->companyid
+     * @return string
+     */
+    public function getCompanyid(){
+        return Yii::$app->user->identity->company_id;
     }
 
     /**
