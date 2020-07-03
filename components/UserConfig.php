@@ -48,15 +48,22 @@ class UserConfig extends User
      */
     public function getTimezone()
     {
-        return @Yii::$app->user->identity->timezone;
+        if (!Yii::$app->user->getIsGuest()) {
+            return @Yii::$app->user->identity->timezone;
+        }
+        return null;
     }
+
     /**
      * Allows to call Yii::$app->user->isCompany
      * @return bool
      */
     public function getIsCompany()
     {
-        return @Yii::$app->user->identity->is_company == 1;
+        if (!Yii::$app->user->getIsGuest()) {
+            return @Yii::$app->user->identity->is_company == 1;
+        }
+        return null;
     }
 
     /**
@@ -65,7 +72,10 @@ class UserConfig extends User
      */
     public function getIsManager()
     {
-        return @Yii::$app->user->identity->is_manager == 1;
+        if (!Yii::$app->user->getIsGuest()) {
+            return @Yii::$app->user->identity->is_manager == 1;
+        }
+        return null;
     }
 
     /**
@@ -73,31 +83,46 @@ class UserConfig extends User
      */
     public function getUsername()
     {
-        return @Yii::$app->user->identity->username;
+        if (!Yii::$app->user->getIsGuest()) {
+            return @Yii::$app->user->identity->username;
+        }
+        return null;
     }
 
     /**
      * Allows to call Yii::$app->user->photo
      * @return string
      */
-    public function getPhoto(){
-        return @Yii::$app->user->identity->photo;
+    public function getPhoto()
+    {
+        if (!Yii::$app->user->getIsGuest()) {
+            return @Yii::$app->user->identity->photo;
+        }
+        return null;
     }
 
     /**
      * Allows to call Yii::$app->user->fullname
      * @return string
      */
-    public function getFullname(){
-        return @Yii::$app->user->identity->fullname;
+    public function getFullname()
+    {
+        if (!Yii::$app->user->getIsGuest()) {
+            return @Yii::$app->user->identity->fullname;
+        }
+        return null;
     }
 
     /**
      * Allows to call Yii::$app->user->companyid
      * @return string
      */
-    public function getCompanyid(){
-        return Yii::$app->user->identity->company_id;
+    public function getCompanyid()
+    {
+        if (!Yii::$app->user->getIsGuest()) {
+            return Yii::$app->user->identity->company_id;
+        }
+        return null;
     }
 
     /**
