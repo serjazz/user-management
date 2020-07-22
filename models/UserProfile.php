@@ -289,8 +289,16 @@ class UserProfile extends \yii\db\ActiveRecord
             $where = 'parent_id = :parent_id';
             $param = [':parent_id'=>(int)$company_id];
         }
-        $model = static::find()->where($where,$param)->all();
-        return ArrayHelper::map($model,'user_id','lastname');
+        $modelAr = static::find()->where($where,$param)->all();
+        $mapAr = [];
+        if($modelAr){
+            foreach($modelAr as $model){
+                $id = ArrayHelper::getValue($model, 'user_id');
+                $fullname = $model->fullname;
+                $mapAr[$id] = $fullname;
+            }
+        }
+        return $mapAr;
     }
 
     /**
