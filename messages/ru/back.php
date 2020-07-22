@@ -132,4 +132,5 @@ return [
     'Profile' => 'Профиль',
     'Timezone' => 'Временная зона',
     'Select timezone' => 'Укажите временную зону',
+    'Select the user' => 'Укажите пользователя',
 ];

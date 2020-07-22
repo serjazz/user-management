@@ -290,7 +290,7 @@ class UserProfile extends \yii\db\ActiveRecord
             $param = [':parent_id'=>(int)$company_id];
         }
         $modelAr = static::find()->where($where,$param)->all();
-        $mapAr = [];
+        $mapAr = [0=>UserManagementModule::t('back', 'Select the user')];
         if($modelAr){
             foreach($modelAr as $model){
                 $id = ArrayHelper::getValue($model, 'user_id');
