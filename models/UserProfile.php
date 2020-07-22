@@ -276,14 +276,18 @@ class UserProfile extends \yii\db\ActiveRecord
 
     /**
      * User list
+     * @param int $company_id
      * @return mixed
      */
-    public static function getUsers(){
+    public static function getUsers($company_id = 0){
         $where = 'parent_id IS NOT NULL';
         $param = [];
         if(!Yii::$app->user->isSuperadmin){
             $where = 'parent_id = :parent_id';
             $param = [':parent_id'=>Yii::$app->user->companyid];
+        }elseif($company_id){
+            $where = 'parent_id = :parent_id';
+            $param = [':parent_id'=>(int)$company_id];
         }
         $model = static::find()->where($where,$param)->all();
         return ArrayHelper::map($model,'user_id','lastname');
