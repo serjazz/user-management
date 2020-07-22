@@ -275,6 +275,17 @@ class UserProfile extends \yii\db\ActiveRecord
     }
 
     /**
+     * User list
+     * @return mixed
+     */
+    public static function getUsers(){
+        $where = 'parent_id IS NOT NULL';
+        $param = [];
+        $model = static::find()->where($where,$param)->all();
+        return ArrayHelper::map($model,'user_id','lastname');
+    }
+
+    /**
      * return list of all timzones
      * @return array
      */
