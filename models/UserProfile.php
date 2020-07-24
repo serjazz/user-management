@@ -277,9 +277,10 @@ class UserProfile extends \yii\db\ActiveRecord
     /**
      * User list
      * @param int $company_id
+     * @param bool $prompt
      * @return mixed
      */
-    public static function getUsers($company_id = 0){
+    public static function getUsers($company_id = 0,$prompt=false){
         $where = 'parent_id IS NOT NULL';
         $param = [];
         if(!Yii::$app->user->isSuperadmin){
@@ -290,7 +291,10 @@ class UserProfile extends \yii\db\ActiveRecord
             $param = [':parent_id'=>(int)$company_id];
         }
         $modelAr = static::find()->where($where,$param)->all();
-        $mapAr = [0=>UserManagementModule::t('back', 'Select the user')];
+        $mapAr = [];
+        if($prompt){
+            $mapAr = [0=>UserManagementModule::t('back', 'Select the user')];
+        }
         if($modelAr){
             foreach($modelAr as $model){
                 $id = ArrayHelper::getValue($model, 'user_id');
