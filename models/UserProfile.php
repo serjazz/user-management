@@ -33,6 +33,10 @@ class UserProfile extends \yii\db\ActiveRecord
      */
     public $fullname;
     /**
+     * @var string
+     */
+    public $fullname_short;
+    /**
      * User avatar
      *
      * @var string
@@ -221,17 +225,36 @@ class UserProfile extends \yii\db\ActiveRecord
     private function compileFullname(){
         if($this->is_company && $this->lastname){
             $this->fullname .=  $this->lastname;
+            $this->fullname_short = $this->lastname;
         } else {
+            if($this->lastname){
+                $this->fullname .=  $this->lastname.' ';
+                $this->fullname_short .= $this->lastname.' ';
+            }
             if($this->firstname){
                 $this->fullname .=  $this->firstname.' ';
+                $first_symb = mb_substr($this->firstname,0,1);
+                $this->fullname_short .= static::mb_ucfirst($first_symb).'.';
             }
             if($this->middlename){
-                $this->fullname .=  $this->middlename.' ';
+                $this->fullname .=  $this->middlename;
+                $first_symb = mb_substr($this->middlename,0,1);
+                $this->fullname_short .= static::mb_ucfirst($first_symb).'.';
             }
-            if($this->lastname){
-                $this->fullname .=  $this->lastname;
-            }
+
         }
+    }
+
+    /**
+     * Analog of ucfirst() function for multibyte literals
+     * @param $string
+     * @param string $enc
+     * @return string
+     */
+    public static function mb_ucfirst($string, $enc = 'UTF-8')
+    {
+        return mb_strtoupper(mb_substr($string, 0, 1, $enc), $enc) .
+            mb_substr($string, 1, mb_strlen($string, $enc), $enc);
     }
 
     /**
