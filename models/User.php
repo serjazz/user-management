@@ -74,6 +74,10 @@ class User extends UserIdentity
      * @var string
      */
     public $timezone;
+    /**
+     * @var int
+     */
+    public $firstday;
 
     /**
      * Store result in singleton to prevent multiple db requests with multiple calls
@@ -373,6 +377,9 @@ class User extends UserIdentity
             }
             if($profile->timezone){
                 $this->timezone = $profile->timezone;
+            }
+            if($profile->firstday){
+                $this->firstday = $profile->firstday;
             }
         }
         if(!$this->is_company && self::hasRole(['manager'],true)){

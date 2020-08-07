@@ -55,6 +55,18 @@ class UserConfig extends User
     }
 
     /**
+     * Allows to call Yii::$app->user->firstday
+     * @return bool
+     */
+    public function getFirstday()
+    {
+        if (!Yii::$app->user->getIsGuest()) {
+            return @Yii::$app->user->identity->firstday;
+        }
+        return null;
+    }
+
+    /**
      * Allows to call Yii::$app->user->isCompany
      * @return bool
      */
