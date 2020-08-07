@@ -95,9 +95,21 @@ class UserProfile extends \yii\db\ActiveRecord
 
     /**
      * return first day of week
+     * @@param bool $short
      * @return array
      */
-    public function firstDaysList(){
+    public function firstDaysList($short=false){
+        if($short){
+            return [
+                0=>UserManagementModule::t('back', 'Sun'),
+                1=>UserManagementModule::t('back', 'Mon'),
+                2=>UserManagementModule::t('back', 'Tue'),
+                3=>UserManagementModule::t('back', 'Wed'),
+                4=>UserManagementModule::t('back', 'Thu'),
+                5=>UserManagementModule::t('back', 'Fri'),
+                6=>UserManagementModule::t('back', 'Sat'),
+            ];
+        }
         return [
             0=>UserManagementModule::t('back', 'Sunday'),
             1=>UserManagementModule::t('back', 'Monday'),
