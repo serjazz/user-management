@@ -133,4 +133,13 @@ return [
     'Timezone' => 'Временная зона',
     'Select timezone' => 'Укажите временную зону',
     'Select the user' => 'Укажите пользователя',
+    'First day of week' => 'Первый день недели',
+    'Select first day of week' => 'Укажите первый день недели',
+    'Sunday' => 'Воскресенье',
+    'Monday' => 'Понедельник',
+    'Tuesday' => 'Вторник',
+    'Wednesday' => 'Среда',
+    'Thursday' => 'Четверг',
+    'Friday' => 'Пятница',
+    'Saturday' => 'Суббота',
 ];

@@ -21,6 +21,7 @@ use Yii;
  * @property int $phone
  * @property string|null $company_hash
  * @property string|null $timezone
+ * @property int $firstday
  *
  * @property User $user
  */
@@ -81,7 +82,7 @@ class UserProfile extends \yii\db\ActiveRecord
         return [
             [['lastname', 'middlename', 'firstname', 'phone'], 'filter', 'filter' => 'trim', 'skipOnArray' => true],
             [['user_id', 'lastname'], 'required'],
-            [['user_id', 'parent_id', 'birthdate', 'is_company', 'remove_photo'], 'integer'],
+            [['user_id', 'parent_id', 'birthdate', 'is_company', 'remove_photo', 'firstday'], 'integer'],
             [['lastname', 'middlename', 'firstname', 'company_hash'], 'string', 'max' => 255],
             [['timezone'], 'string', 'max' => 150],
             [['phone'], 'string', 'max' => 11],
@@ -89,6 +90,22 @@ class UserProfile extends \yii\db\ActiveRecord
             [['photo'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg'],
             ['phone', 'filter', 'filter' => [$this, 'normalizePhone']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
+        ];
+    }
+
+    /**
+     * return first day of week
+     * @return array
+     */
+    public function firstDaysList(){
+        return [
+            0=>UserManagementModule::t('back', 'Sunday'),
+            1=>UserManagementModule::t('back', 'Monday'),
+            2=>UserManagementModule::t('back', 'Tuesday'),
+            3=>UserManagementModule::t('back', 'Wednesday'),
+            4=>UserManagementModule::t('back', 'Thursday'),
+            5=>UserManagementModule::t('back', 'Friday'),
+            6=>UserManagementModule::t('back', 'Saturday'),
         ];
     }
 
@@ -125,6 +142,7 @@ class UserProfile extends \yii\db\ActiveRecord
             'company_hash' => UserManagementModule::t('back', 'Company hash'),
             'remove_photo' => UserManagementModule::t('back', 'Remove photo'),
             'timezone' => UserManagementModule::t('back', 'Timezone'),
+            'firstday' => UserManagementModule::t('back', 'First day of week'),
         ];
         if($this->is_company){
             $attrLabels['lastname'] = UserManagementModule::t('back', 'Company');
