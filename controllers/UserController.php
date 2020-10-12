@@ -38,12 +38,16 @@ class UserController extends AdminDefaultController
     public function actionCreate()
     {
         $model = new User(['scenario'=>'newUser']);
+        $profile = null;
+        if($model instanceof User) {
+            $profile = $model->getProfile()->one();
+        }
         if ( $model->load(Yii::$app->request->post()) && $model->save() )
         {
             return $this->redirect(['view',	'id' => $model->id]);
         }
 
-        return $this->renderIsAjax('create', compact('model'));
+        return $this->renderIsAjax('create', compact('model','profile'));
     }
 
     /**
