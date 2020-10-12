@@ -39,9 +39,6 @@ class UserController extends AdminDefaultController
     {
         $model = new User(['scenario'=>'newUser']);
         $profile = new UserProfile();
-        if($model instanceof User) {
-            $profile = $model->getProfile()->one();
-        }
         if ( $model->load(Yii::$app->request->post()) && $model->save() )
         {
             return $this->redirect(['view',	'id' => $model->id]);
