@@ -175,20 +175,20 @@ class UserProfile extends \yii\db\ActiveRecord
         parent::afterFind();
     }
 
-    public function afterValidate()
+    public function beforeSave($insert)
     {
         if(is_object($this->photo)){
-            if($this->old_profile->photo && $this->isPhotoExist($this->old_profile->photo)){
+            if($this->old_profile && $this->old_profile->photo && $this->isPhotoExist($this->old_profile->photo)){
                 $this->removePhoto($this->old_profile->photo);
             }
             $name = $this->generatePhotoName($this->photo->baseName). '.'. $this->photo->extension;
             $this->photo->saveAs(Yii::$app->getModule('user-management')->photo_path_absolute.'/'. $name);
             $this->photo = $name;
-        } elseif($this->remove_photo && $this->old_profile->photo && $this->isPhotoExist($this->old_profile->photo)){
+        } elseif($this->old_profile && $this->remove_photo && $this->old_profile->photo && $this->isPhotoExist($this->old_profile->photo)){
             $this->removePhoto($this->old_profile->photo);
             $this->photo = null;
         }
-        return parent::beforeValidate();
+        return parent::beforeSave($insert);
     }
 
     /**

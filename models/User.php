@@ -494,7 +494,7 @@ class User extends UserIdentity
             }
         }
         if($profile = $this->getProfile()->one()){
-            if($profile->photo){
+            if($profile->photo && $profile->photo != 'default_profile.jpg'){
                 \Yii::$app->getModule('user-management')->removeFile(\Yii::$app->getModule('user-management')->photo_path_absolute.'/'.$profile->photo);
             }
         }

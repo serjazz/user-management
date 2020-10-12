@@ -11,6 +11,7 @@ use Yii;
 use serjazz\modules\UserManagement\models\User;
 use serjazz\modules\UserManagement\models\search\UserSearch;
 use yii\web\NotFoundHttpException;
+use yii\web\UploadedFile;
 
 /**
  * UserController implements the CRUD actions for User model.
@@ -39,9 +40,23 @@ class UserController extends AdminDefaultController
     {
         $model = new User(['scenario'=>'newUser']);
         $profile = new UserProfile();
-        if ( $model->load(Yii::$app->request->post()) && $model->save() )
+        if ( $model->load(Yii::$app->request->post()) && $model->validate() )
         {
-            return $this->redirect(['view',	'id' => $model->id]);
+            $post = Yii::$app->request->post();
+            unset($post['UserProfile']['photo']);
+            if($profile->load($post) && $model->validate()){
+                $model->save(false);
+                $profile->user_id = $model->id;
+                $photo = UploadedFile::getInstance($profile, 'photo');
+                if($photo){
+                    $profile->photo = $photo;
+                }
+                if($profile->save(false)) {
+                    $redirect = $this->getRedirectPage('update', $model);
+                    return $redirect === false ? '' : $this->redirect($redirect);
+                }
+            }
+            //return $this->redirect(['view',	'id' => $model->id]);
         }
 
         return $this->renderIsAjax('create', compact('model','profile'));
