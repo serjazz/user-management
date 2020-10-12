@@ -4,6 +4,7 @@ namespace serjazz\modules\UserManagement\components;
 
 use serjazz\modules\UserManagement\models\forms\RegistrationForm;
 use serjazz\modules\UserManagement\models\User;
+use serjazz\modules\UserManagement\models\UserProfile;
 use yii\data\ActiveDataProvider;
 use yii\db\ActiveRecord;
 use yii\filters\VerbFilter;
@@ -131,7 +132,7 @@ class AdminDefaultController extends BaseController
     public function actionCreate()
     {
         $model = new $this->modelClass;
-
+        $profile = new UserProfile();
         if ( $this->scenarioOnCreate )
         {
             $model->scenario = $this->scenarioOnCreate;
@@ -144,7 +145,7 @@ class AdminDefaultController extends BaseController
             return $redirect === false ? '' : $this->redirect($redirect);
         }
 
-        return $this->renderIsAjax('create', compact('model'));
+        return $this->renderIsAjax('create', compact('model','profile'));
     }
 
     /**
@@ -158,7 +159,7 @@ class AdminDefaultController extends BaseController
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $profile = null;
+        $profile = new UserProfile();
         if($model instanceof User) {
             $profile = $model->getProfile()->one();
         }

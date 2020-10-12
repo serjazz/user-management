@@ -38,7 +38,7 @@ class UserController extends AdminDefaultController
     public function actionCreate()
     {
         $model = new User(['scenario'=>'newUser']);
-        $profile = null;
+        $profile = new UserProfile();
         if($model instanceof User) {
             $profile = $model->getProfile()->one();
         }
