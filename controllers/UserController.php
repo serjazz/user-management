@@ -38,28 +38,25 @@ class UserController extends AdminDefaultController
      */
     public function actionCreate()
     {
-        $model = new User(['scenario'=>'newUser']);
+        $model = new User(['scenario' => 'newUser']);
         $profile = new UserProfile();
-        if ( $model->load(Yii::$app->request->post()) && $model->validate() )
-        {
-            $post = Yii::$app->request->post();
-            unset($post['UserProfile']['photo']);
-            if($profile->load($post) && $model->validate()){
-                $model->save(false);
-                $profile->user_id = $model->id;
-                $photo = UploadedFile::getInstance($profile, 'photo');
-                if($photo){
-                    $profile->photo = $photo;
-                }
-                if($profile->save(false)) {
-                    $redirect = $this->getRedirectPage('update', $model);
-                    return $redirect === false ? '' : $this->redirect($redirect);
-                }
+        $post = Yii::$app->request->post();
+        unset($post['UserProfile']['photo']);
+        if ($model->load(Yii::$app->request->post()) && $profile->load($post) && $model->validate() && $profile->validate()) {
+            $model->save(false);
+            $profile->user_id = $model->id;
+            $photo = UploadedFile::getInstance($profile, 'photo');
+            if ($photo) {
+                $profile->photo = $photo;
             }
-            //return $this->redirect(['view',	'id' => $model->id]);
+            if ($profile->save(false)) {
+                $redirect = $this->getRedirectPage('update', $model);
+                return $redirect === false ? '' : $this->redirect($redirect);
+            }
+
         }
 
-        return $this->renderIsAjax('create', compact('model','profile'));
+        return $this->renderIsAjax('create', compact('model', 'profile'));
     }
 
     /**
@@ -67,14 +64,15 @@ class UserController extends AdminDefaultController
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException
      */
-    public function actionInvite($id){
+    public
+    function actionInvite($id)
+    {
         $user = $this->findModel($id);
         $profile = $user->getProfile()->one();
         $model = new InviteForm();
-        if ( $model->load(Yii::$app->request->post()) && $model->validate() && $model->sendInvite($profile))
-        {
+        if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->sendInvite($profile)) {
             Yii::$app->session->setFlash('success', UserManagementModule::t('back', 'Users was being invited'));
-            return $this->redirect(['view',	'id' => $user->id]);
+            return $this->redirect(['view', 'id' => $user->id]);
         }
         return $this->renderIsAjax('invite', compact('model'));
     }
@@ -82,23 +80,22 @@ class UserController extends AdminDefaultController
     /**
      * @param int $id User ID
      *
-     * @throws \yii\web\NotFoundHttpException
      * @return string
+     * @throws \yii\web\NotFoundHttpException
      */
-    public function actionChangePassword($id)
+    public
+    function actionChangePassword($id)
     {
         $model = User::findOne($id);
 
-        if ( !$model )
-        {
+        if (!$model) {
             throw new NotFoundHttpException('User not found');
         }
 
         $model->scenario = 'changePassword';
 
-        if ( $model->load(Yii::$app->request->post()) && $model->save() )
-        {
-            return $this->redirect(['view',	'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->renderIsAjax('changePassword', compact('model'));

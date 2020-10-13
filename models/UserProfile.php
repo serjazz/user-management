@@ -81,7 +81,7 @@ class UserProfile extends \yii\db\ActiveRecord
     {
         return [
             [['lastname', 'middlename', 'firstname', 'phone'], 'filter', 'filter' => 'trim', 'skipOnArray' => true],
-            [['user_id', 'lastname'], 'required'],
+            [['lastname'], 'required'],
             [['user_id', 'parent_id', 'birthdate', 'is_company', 'remove_photo', 'firstday'], 'integer'],
             [['lastname', 'middlename', 'firstname', 'company_hash'], 'string', 'max' => 255],
             [['timezone'], 'string', 'max' => 150],
@@ -177,6 +177,9 @@ class UserProfile extends \yii\db\ActiveRecord
 
     public function beforeSave($insert)
     {
+        if(Yii::$app->user->isCompany){
+            $this->parent_id = Yii::$app->user->id;
+        }
         if(is_object($this->photo)){
             if($this->old_profile && $this->old_profile->photo && $this->isPhotoExist($this->old_profile->photo)){
                 $this->removePhoto($this->old_profile->photo);

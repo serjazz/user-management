@@ -30,11 +30,14 @@ class UserSearch extends User
 	{
 		$query = User::find();
 
-		$query->with(['roles']);
+        $query->joinWith(['roles','profile']);
 
 		if ( !Yii::$app->user->isSuperadmin )
 		{
 			$query->where(['superadmin'=>0]);
+            if(Yii::$app->user->isCompany){
+                $query->where('user_profile.parent_id = :userid',[':userid'=>Yii::$app->user->id]);
+            }
 		}
 
 		$dataProvider = new ActiveDataProvider([

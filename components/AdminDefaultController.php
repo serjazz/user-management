@@ -94,7 +94,7 @@ class AdminDefaultController extends BaseController
                 $model->where(['superadmin'=>0]);
             }
             if(Yii::$app->user->isCompany){
-                $model->where('profile.parent_id = :userid OR profile.user_id = :userid',[':userid'=>Yii::$app->user->id]);
+                $model->where('profile.parent_id = :userid',[':userid'=>Yii::$app->user->id]);
             }
             $dataProvider = new ActiveDataProvider([
                 'query' => $model,
@@ -114,7 +114,9 @@ class AdminDefaultController extends BaseController
     public function actionView($id)
     {
         $model = $this->findModel($id);
-        if($model && !$profile = $model->getProfile()->one()){
+        $profile = $model->getProfile()->one();
+        $this->checkAccess($model, $profile);
+        if($model && !$profile){
             $regForm = new RegistrationForm();
             $regForm->is_company = 0;
             if($regForm->saveProfile($model)){
@@ -163,6 +165,7 @@ class AdminDefaultController extends BaseController
         if($model instanceof User) {
             $profile = $model->getProfile()->one();
         }
+        $this->checkAccess($model, $profile);
         if ( $this->scenarioOnUpdate )
         {
             $model->scenario = $this->scenarioOnUpdate;
@@ -198,8 +201,9 @@ class AdminDefaultController extends BaseController
     public function actionDelete($id)
     {
         $model = $this->findModel($id);
+        $profile = $model->getProfile()->one();
+        $this->checkAccess($model, $profile);
         $model->delete();
-
         $redirect = $this->getRedirectPage('delete', $model);
 
         return $redirect === false ? '' : $this->redirect($redirect);
@@ -211,6 +215,8 @@ class AdminDefaultController extends BaseController
     public function actionToggleAttribute($attribute, $id)
     {
         $model = $this->findModel($id);
+        $profile = $model->getProfile()->one();
+        $this->checkAccess($model, $profile);
         $model->{$attribute} = ($model->{$attribute} == 1) ? 0 : 1;
         $model->save(false);
     }
@@ -224,7 +230,6 @@ class AdminDefaultController extends BaseController
         if ( Yii::$app->request->post('selection') )
         {
             $modelClass = $this->modelClass;
-
             $modelClass::updateAll(
                 [$attribute=>1],
                 ['id'=>Yii::$app->request->post('selection', [])]
@@ -241,7 +246,6 @@ class AdminDefaultController extends BaseController
         if ( Yii::$app->request->post('selection') )
         {
             $modelClass = $this->modelClass;
-
             $modelClass::updateAll(
                 [$attribute=>0],
                 ['id'=>Yii::$app->request->post('selection', [])]
@@ -382,5 +386,23 @@ class AdminDefaultController extends BaseController
 
         return false;
 
+    }
+
+    /**
+     * Check for access rights
+     * @param User $model
+     * @param UserProfile $profile
+     * @throws NotFoundHttpException
+     */
+    private function checkAccess(User $model, UserProfile $profile)
+    {
+        $access = true;
+        if((int)$model->id !== (int)Yii::$app->user->id){
+            if(!Yii::$app->user->isSuperadmin){
+                if(Yii::$app->user->isCompany && (int)$profile->parent_id !== (int)Yii::$app->user->id){
+                    throw new NotFoundHttpException('Page not found');
+                }
+            }
+        }
     }
 }
