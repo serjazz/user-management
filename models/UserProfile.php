@@ -170,7 +170,7 @@ class UserProfile extends \yii\db\ActiveRecord
         if($this->birthdate){
 
             $birthdate = \DateTime::createFromFormat('U', $this->birthdate);
-            $this->birthdate =  $birthdate->format('d.m.Y');
+            $this->birthdate =  $birthdate->format('Y-m-d');
         }
         $this->userPhoto();
         $this->compileFullname();
