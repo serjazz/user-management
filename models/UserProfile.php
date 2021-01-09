@@ -167,12 +167,25 @@ class UserProfile extends \yii\db\ActiveRecord
 
     public function afterFind()
     {
+        if($this->birthdate){
+            $birthdate = new \DateTime($this->birthdate);
+            $this->birthdate =  $birthdate->format('d.m.Y');
+        }
         $this->userPhoto();
         $this->compileFullname();
         $this->workPlace();
         $this->beautyfyPhone();
         $this->old_profile = $this;
         parent::afterFind();
+    }
+
+    public function beforeValidate()
+    {
+        if($this->birthdate){
+            $birthdate = new \DateTime($this->birthdate);
+            $this->birthdate =  $birthdate->format('U');
+        }
+        return parent::beforeValidate();
     }
 
     public function beforeSave($insert)
