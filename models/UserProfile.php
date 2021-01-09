@@ -168,7 +168,8 @@ class UserProfile extends \yii\db\ActiveRecord
     public function afterFind()
     {
         if($this->birthdate){
-            $birthdate = new \DateTime($this->birthdate);
+
+            $birthdate = \DateTime::createFromFormat('U', $this->birthdate);
             $this->birthdate =  $birthdate->format('d.m.Y');
         }
         $this->userPhoto();
