@@ -39,6 +39,7 @@ return [
     'Password reset for' => 'Смена пароля для',
     'Recover' => 'Восстановить',
     'Register' => 'Регистрация',
+    'Back' => 'Назад',
     'Registration' => 'Регистрация',
     'Registration - confirm your e-mail' => 'Регистрация - подтверждение аккаунта',
     'Remember me' => 'Запомнить меня',
