@@ -29,11 +29,11 @@ class AuthHelper
      */
     public static function layoutHandler($event)
     {
-        if ( $event->action->uniqueId == 'user-management/auth/login' )
+        if (in_array($event->action->uniqueId,['user-management/auth/login','user-management/auth/registration']))
         {
             $event->action->controller->layout = 'loginLayout.php';
         }
-        elseif ( $event->action->controller->id == 'auth' )
+        elseif ( $event->action->controller->id === 'auth' )
         {
             if ( in_array($event->action->id, ['change-own-password', 'confirm-email']) )
             {
